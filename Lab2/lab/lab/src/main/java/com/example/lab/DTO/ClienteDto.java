@@ -22,11 +22,13 @@ public class ClienteDto {
 
     private String pais;
 
+    private String tipo;
+
     private List<Direccion> direccionesDto ;
- /*
+
     private List<Cuenta> cuentasDto = new ArrayList<>();
     private List<Tarjeta> tarjetasDto = new ArrayList<>();
-    private List<Inversion> inversionesDto = new ArrayList<>();*/
+    private List<Inversion> inversionesDto = new ArrayList<>();
 
 
 }

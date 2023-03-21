@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface CuentaRepository extends JpaRepository<Cuenta,Integer> {
 
+    void deleteAllByCliente_id(int clienteid);
 
 
 }
+

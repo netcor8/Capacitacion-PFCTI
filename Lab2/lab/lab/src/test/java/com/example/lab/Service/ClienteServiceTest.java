@@ -70,15 +70,13 @@ class ClienteServiceTest {
 
     @Test
     void eliminarCliente() {
-        ClienteDto clienteDtoBase = clienteService.obtenerCliente(1);
-        assertEquals(1, clienteDtoBase.getId());
-
+        ClienteDto clienteDto = clienteService.obtenerCliente(1);
+        assertEquals(1, clienteDto.getId());
         clienteService.eliminarCliente(1);
-
         try {
             clienteService.obtenerCliente(1);
-            fail("No debe llegar aca");
-        } catch (RuntimeException e) {
+            fail("No debe llegar acá");    }
+        catch (RuntimeException e){
             System.out.println("CLIENTE NO EXISTE: " + e.getMessage());
         }
     }
@@ -88,5 +86,31 @@ class ClienteServiceTest {
         List<ClienteDto> clientesDto = clienteService.obtenerClientesPorCodigoISOPaisYCuentasActivas("CR");
         clientesDto.forEach(clienteDto -> {System.out.println("Cuentas Activas" + clienteDto);});
         assertEquals(1, clientesDto.size());
+    }
+
+    @Test
+    void buscarClientesPorApellido() {
+        List<Cliente> cliente =  clienteService.buscarClientesPorApellido("PEREZ");
+        assertFalse(cliente.isEmpty());
+        assertEquals("PEREZ", cliente.get(0).getApellidos());
+    }
+
+
+    @Test
+    void reportPorTipoClienteYCuenta() {
+        List<ClienteDto> clientesDto = clienteService.obtenerClientesPorCodigoISOPaisYCuentasActivas("EXTRANJERO");
+        clientesDto.forEach(clienteDto -> {System.out.println("Cuentas Extranjeras" + clienteDto);});
+        assertEquals(1, clientesDto.size());
+    }
+
+
+    @Test
+    void buscarClientesDinamicamentePorCriterio() {
+        ClienteDto clienteDto = new ClienteDto();
+        clienteDto.setApellido("SANCHEZ");
+        clienteDto.setNombre("RAUL");
+        List<ClienteDto> resultadoCriteriosConDatosDTO = clienteService.buscarClientesDinamicamentePorCriterio(clienteDto);
+        resultadoCriteriosConDatosDTO.forEach(clienteDtoResultado -> {System.out.println("ClienteDto es:"+ clienteDtoResultado);});
+        assertEquals(1,resultadoCriteriosConDatosDTO.size());
     }
 }

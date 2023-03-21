@@ -40,6 +40,19 @@ public class Cliente {
     private String telefono;
 
 
+    @Column(name = "telefono"
+            , length = 11
+            , columnDefinition = "varchar(11)")
+    private String tipo;
+
+
+    @Column(name = "pais"
+            , length = 11
+            , columnDefinition = "varchar(50)")
+    private String pais;
+
+
+
     @OneToMany(mappedBy = "cliente"
             , cascade = CascadeType.ALL
             , fetch = FetchType.LAZY

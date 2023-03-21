@@ -10,6 +10,7 @@ import lombok.Setter;
 public class Cuenta {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -22,6 +23,14 @@ public class Cuenta {
             , length = 10
             , columnDefinition = "varchar(10)")
     private String tipo;
+
+    @Column(name = "estado"
+
+            , length = 10
+            , columnDefinition = "Boolean")
+    private Boolean estado;
+
+
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")

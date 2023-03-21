@@ -13,5 +13,8 @@ public class TarjetaDto {
     private String numero;
     private String tipo;
 
+    private Boolean estado;
+
    // private Cliente cliente;
+
 }
