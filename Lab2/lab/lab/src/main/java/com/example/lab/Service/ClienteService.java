@@ -2,6 +2,7 @@ package com.example.lab.Service;
 
 import com.example.lab.Criterio.ClienteSpecification;
 import com.example.lab.DTO.ClienteDto;
+import com.example.lab.DTO.ProductoDto;
 import com.example.lab.Model.Cliente;
 import com.example.lab.repository.ClienteRepository;
 import com.example.lab.repository.CuentaRepository;
@@ -67,7 +68,7 @@ public class ClienteService {
    }
 
 
-    public List<ClienteDto> obtenerClientesPorCodigoISOPaisYCuentasActivas(String codigoISOPais){
+  /*  public List<ClienteDto> obtenerClientesPorCodigoISOPaisYCuentasActivas(String codigoISOPais){
         List<ClienteDto> resultadoClientesDto = new ArrayList<>();
         List<Cliente> clientes = clienteRepository.findClientesByPaisNacimientoAndCuentas_EstadoIsTrue(codigoISOPais);
         clientes.forEach(cliente -> {
@@ -81,16 +82,16 @@ public class ClienteService {
             System.out.println(clienteDto);
         });
         return resultadoClientesDto;
-    }
+    }*/
 
 
     public List<Cliente> buscarClientesPorApellido(String apellidos){
-        return clienteRepository.buscarPorApellidos(apellidos);
+/*        return clienteRepository.buscarPorApellidos(apellidos);
     }
 
     public List<ClienteDto> buscarClientesPorApellidoNativo(String apellidos){
         List<ClienteDto> clienteDtos = new ArrayList<>();
-        List<Tuple> tuples = clienteRepository.buscarPorApellidosNativo(apellidos);
+        List<Tuple> tuples = clienteRepository.obtieneClientesPorApellidoQueryLanguage(apellidos);
         tuples.forEach(tuple -> {
             ClienteDto clienteDto = new ClienteDto();
             clienteDto.setApellido((String) tuple.get("apellidos"));
@@ -131,11 +132,11 @@ public class ClienteService {
         return clienteDto;
     }
 
-    /*
-    public List<ProductDto> obteneter(){
-       cuentaRepository.find
-               return numm
-    }*/
+
+    public List<ProductoDto> obteneter(){
+
+               return null;
+    }
 
 
 

@@ -10,25 +10,25 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente,Integer>, JpaSpecificationExecutor<Cliente> {
-
-    List<Cliente> findClientesByPaisNacimientoAndCuentas_EstadoIsTrue(String paisNacimiento);
-
-
-    @Query(value = "select c from Cliente c where c.apellidos = :apellidos")
-    List<Cliente> buscarPorApellidos(String apellidos);
-
-    @Query(value = "select nombre,apellidos,cedula,telefono,id from cliente where apellidos := apellidos",
-            nativeQuery = true)
-    List<Tuple>  buscarPorApellidosNativo(String apellidos);
+public interface ClienteRepository extends JpaRepository<Cliente, Integer>
+        , JpaSpecificationExecutor<Cliente> {
+    @Query("SELECT t FROM Cliente t INNER JOIN Cuenta c ON t = c.cliente WHERE t.pais = :pais AND c.estado")
+    public List<Cliente>  obtenerClientesCuentasActivas(String pais);
 
 
-    @Query("SELECT c FROM Cliente c INNER JOIN Tarjeta t ON c = t.cliente WHERE c.pais = :tipoCliente AND t.estado = false")
-    List<Tuple>  reportPorTipoClienteYCuenta(String tipoCliente);
+    //Derived methods
+    public List<Cliente> obtenerClientesPorPaisCuentasEstadoActivo(String pais);
+
+    @Query("SELECT c FROM Cliente c WHERE c.apellidos like %:apellido%")
+    public List<Cliente> obtieneClientesPorApellidoQueryLanguage(String apellido);
+
+    @Query(value = "SELECT nombre,apellidos,cedula,telefono,id FROM Cliente WHERE apellidos like %:apellido%"
+            , nativeQuery = true)
+    public List<Tuple> obtieneClientesPorApellidoQueryLanguageNativeQuery(String apellido);
 
 
+    @Query("SELECT c FROM Cliente c INNER JOIN Tarjeta t ON c = t.cliente WHERE c.pais != :codigoPaisLocal AND t.estado = false")
+    public List<Cliente> obtieneClientesExtrajerosConTarjetasInactivas(String codigoPaisLocal);
 
-
-
-
+    public List<Cliente>    obtenerClientesPorPaisConEstadoInactivo(String paisNacimiento);
 }

@@ -1,13 +1,10 @@
-package com.example.lab.Criterio;
+package com.demo.criteria;
 
-
-import com.example.lab.DTO.ClienteDto;
-import com.example.lab.Model.Cliente;
+import com.demo.dto.ClienteDto;
+import com.demo.model.Cliente;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.javapoet.TypeName;
 import org.springframework.stereotype.Component;
 
-import javax.sound.midi.SysexMessage;
 import java.text.MessageFormat;
 import java.util.Locale;
 
@@ -30,49 +27,34 @@ public class ClienteSpecification {
         }
     }
 
-
-    private Specification<Cliente> apellidoCriteria(ClienteDto clienteDto)
-    {
+    private Specification<Cliente> apellidoCriteria(ClienteDto clienteDto){
         return like("apellidos", clienteDto.getApellido());
     }
 
-    private Specification<Cliente> nombreCriteria(ClienteDto clienteDto)
-    {
+    private Specification<Cliente> nombreCriteria(ClienteDto clienteDto){
         return like("nombre", clienteDto.getNombre());
     }
 
-    private Specification<Cliente> cedulaCriteria(ClienteDto clienteDto)
-    {
+    private Specification<Cliente> cedulaCriteria(ClienteDto clienteDto){
         return like("cedula", clienteDto.getCedula());
     }
 
-    private Specification<Cliente> telefonoCriteria(ClienteDto clienteDto)
-    {
+    private Specification<Cliente> telefonoCriteria(ClienteDto clienteDto){
         return like("telefono", clienteDto.getTelefono());
     }
 
-    private Specification<Cliente> paisNacimientoCriteria(ClienteDto clienteDto)
-    {
-        return like("paisNacimiento", clienteDto.getPais());
+    private Specification<Cliente> paisNacimientoCriteria(ClienteDto clienteDto){
+        return like("paisNacimientoCriteria", clienteDto.getPaisNacimiento());
     }
 
-    public Specification<Cliente> buildFilter(ClienteDto clienteDto)
-    {
-        System.out.println("");
-        System.out.println(
-                String.format("Evaluación de criterio para %1$s - %2$s - %3$s - %4$s - %5$s - %6$s",
-                        TypeName.get(ClienteDto.class),
-                        clienteDto.getApellido(),
-                        clienteDto.getNombre(),
-                        clienteDto.getCedula(),
-                        clienteDto.getTelefono(),
-                        clienteDto.getPais())
-        );
-        System.out.println("");
-        return Specification.where(apellidoCriteria(clienteDto))
+    public Specification<Cliente> buildFilter(ClienteDto clienteDto){
+        System.out.println("Terms of Criteria:" + clienteDto);
+        return Specification
+                .where(apellidoCriteria(clienteDto))
                 .and(nombreCriteria(clienteDto))
                 .and(cedulaCriteria(clienteDto))
                 .and(telefonoCriteria(clienteDto))
                 .and(paisNacimientoCriteria(clienteDto));
     }
+
 }
