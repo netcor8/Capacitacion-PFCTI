@@ -29,11 +29,12 @@ class AdministradorCuentasTest {
     @Test
     void obtieneListaCuentasSistemExterno() {
         var criteria = new CuentaQueryDto();
-        criteria.setTextoBusqueda("2");
+        //criteria.setTextoBusqueda("2");
+        criteria.setClienteId(1);
         criteria.setTipoBusqueda(CuentaQueryType.clienteId);
         var cuentas = buscadorCuentas.obtenerListaCuentas(criteria);
         System.out.println("Numero de Cuentas: " + cuentas.size());
-        Assert.isTrue(cuentas.size() == 1, "Se esperaban 1 cuentas");
+        Assert.isTrue(cuentas.size() == 3, "Se esperaban 1 cuentas");
     }
 
 }
