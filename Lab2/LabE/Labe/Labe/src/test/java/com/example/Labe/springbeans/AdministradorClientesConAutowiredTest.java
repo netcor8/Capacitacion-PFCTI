@@ -15,17 +15,19 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Slf4j
-class AdministradorClientesTest {
+class AdministradorClientesConAutowiredTest {
 
     @Autowired
     private ClienteRepository clienteRepository;
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    AdministradorClientes administradorClientes;
+
 
 
     @BeforeEach

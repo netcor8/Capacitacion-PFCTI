@@ -1,7 +1,8 @@
 package com.example.Labe.springbeans.dto;
 
-public enum ClienteQueryType {
+public enum ClienteQueryType  {
     CEDULA,
     NOMBRES
+
 
 }

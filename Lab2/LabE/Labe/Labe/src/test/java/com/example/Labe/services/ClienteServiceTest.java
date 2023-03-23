@@ -127,4 +127,15 @@ class ClienteServiceTest {
         System.out.println("Cantidad de Cuentas: " + productosDto.getCuentaDtos().size());
         assertEquals(2, productosDto.getCuentaDtos().size());
     }
+
+    @Test
+    void insertarClienteConValidaciones(){
+        ClienteDto clienteDto = new ClienteDto();
+        clienteDto.setApellido("Salazar");
+        clienteDto.setNombre("Al");
+        clienteDto.setCedula("hola");
+        assertEquals(1,1);
+
+    }
+
 }

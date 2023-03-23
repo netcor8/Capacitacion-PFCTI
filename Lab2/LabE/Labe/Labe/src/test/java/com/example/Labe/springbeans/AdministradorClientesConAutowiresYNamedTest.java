@@ -10,22 +10,29 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Slf4j
-class AdministradorClientesTest {
+class AdministradorClientesConAutowiresYNamedTest {
 
     @Autowired
     private ClienteRepository clienteRepository;
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private AdministradorClientes defaultCedula;
+
+    @Autowired
+    @Qualifier("defaultNombres")
+    private  AdministradorClientes administradorClientes;
+
 
 
     @BeforeEach
@@ -90,7 +97,7 @@ class AdministradorClientesTest {
     }
 
     @Test
-    void obtenerListaClientesPorCriterio() {
+    void obtenerListaClientesPorCriterioCedula() {
         AdministradorClientes administradorClientes = new AdministradorClientes(ClienteQueryType.CEDULA);
         administradorClientes.setClienteRepository(clienteRepository);
         ClienteQueryDto clienteQueryDto = new ClienteQueryDto();
@@ -100,4 +107,46 @@ class AdministradorClientesTest {
         List<ClienteDto> clienteDtos = administradorClientes.obtenerListaClientesPorCriterio(clienteQueryDto);
         Assertions.assertEquals(0, clienteDtos.size());
     }
+
+    @Test
+    void obtenerListaClientPorCriterioNombres(){
+        ClienteQueryDto clienteQueryDto = new ClienteQueryDto();
+        clienteQueryDto.setTipoBusqueda(ClienteQueryType.CEDULA);
+        clienteQueryDto.setTextoBusqueda("Salazar");
+        List<ClienteDto> clienteDtos = administradorClientes.obtenerListaClientesPorCriterio(clienteQueryDto);
+        System.out.println("Tamaño: " + clienteDtos.size());
+        Assertions.assertEquals(0, clienteDtos.size());
+    }
+
+    @Test
+    void administradorClientesBeanSession() {
+        ClienteQueryDto clienteQueryDto = new ClienteQueryDto();
+        clienteQueryDto.setTipoBusqueda(ClienteQueryType.CEDULA);
+        clienteQueryDto.setTextoBusqueda("Salazar");
+        List<ClienteDto> clienteDtos = administradorClientes.obtenerListaClientesPorCriterio(clienteQueryDto);
+        System.out.println("Tamaño: " + clienteDtos.size());
+        Assertions.assertEquals(0, clienteDtos.size());
+    }
+
+    @Test
+    void administradorClientesBeanRequest() {
+        ClienteQueryDto clienteQueryDto = new ClienteQueryDto();
+        clienteQueryDto.setTipoBusqueda(ClienteQueryType.CEDULA);
+        clienteQueryDto.setTextoBusqueda("Salazar");
+        List<ClienteDto> clienteDtos = administradorClientes.obtenerListaClientesPorCriterio(clienteQueryDto);
+        System.out.println("Tamaño: " + clienteDtos.size());
+        Assertions.assertEquals(0, clienteDtos.size());
+    }
+
+    @Test
+    void administradorClientesBeanApplication() {
+        ClienteQueryDto clienteQueryDto = new ClienteQueryDto();
+        clienteQueryDto.setTipoBusqueda(ClienteQueryType.CEDULA);
+        clienteQueryDto.setTextoBusqueda("Salazar");
+        List<ClienteDto> clienteDtos = administradorClientes.obtenerListaClientesPorCriterio(clienteQueryDto);
+        System.out.println("Tamaño: " + clienteDtos.size());
+        Assertions.assertEquals(0, clienteDtos.size());
+    }
+
+
 }

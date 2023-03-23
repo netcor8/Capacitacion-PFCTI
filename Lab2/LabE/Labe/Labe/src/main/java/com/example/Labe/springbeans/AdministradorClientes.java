@@ -14,12 +14,27 @@ import java.util.stream.Collectors;
 
 public class AdministradorClientes {
 
-      private final ClienteRepository clienteRepository;
+    public void setClienteRepository(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
+
+    private  ClienteRepository clienteRepository;
 
       private ClienteQueryType defaultClienteQueryType;
 
+
+
     public AdministradorClientes(ClienteRepository clienteRepository , ClienteQueryType clienteQueryType) {
+        System.out.println("Inicializando Constructor: " + this);
         this.clienteRepository = clienteRepository;
+        this.defaultClienteQueryType = clienteQueryType;
+    }
+
+
+
+
+    public AdministradorClientes( ClienteQueryType clienteQueryType) {
+       // this.clienteRepository = clienteRepository;
         this.defaultClienteQueryType = clienteQueryType;
     }
 
