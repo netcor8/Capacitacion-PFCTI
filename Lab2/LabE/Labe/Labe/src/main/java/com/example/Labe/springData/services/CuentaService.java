@@ -61,11 +61,13 @@ public class CuentaService {
         cuentaRepository.save(cuenta);
     }
 
-    public void eliminarCuenta(int cuentaId){
-
-        cuentaRepository.deleteCuenta(cuentaId);
-
+    public CuentaDto desactivarCuentaPorId(CuentaDto cuentaDto){
+        Cuenta cuenta = cuentaRepository.findById(cuentaDto.getId()).orElseThrow(() -> {throw new RuntimeException("cuenta de Cliente No Existe");});
+        cuenta.setEstado(false);
+        cuentaRepository.save(cuenta);
+        return fromCuentaToDto(cuenta);
     }
+
 
 
 }

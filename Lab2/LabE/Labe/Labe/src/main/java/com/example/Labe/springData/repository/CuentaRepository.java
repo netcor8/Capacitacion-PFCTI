@@ -19,6 +19,8 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Integer>, JpaSpe
     List<Cuenta> findCuentasByCliente_IdAndEstadoIsTrue(int clientId);
 
 
-    void deleteCuenta(int cuentaId);
+    void desactivarCuenta(int cuentaId);
+
+
 
 }

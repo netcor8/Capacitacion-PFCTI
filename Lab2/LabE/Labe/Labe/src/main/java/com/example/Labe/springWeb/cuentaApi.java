@@ -35,9 +35,9 @@ public class cuentaApi {
     }
 
     @DeleteMapping(value="/{id}")
-    public void eliminarCuenta(@PathVariable int cuentaId){
-        log.info("Busqueda de Cliente; {}", cuentaId);
-        cuentaService.eliminarCuenta(cuentaId);
+    public void DesactivarCuenta(@PathVariable CuentaDto cuentaDto){
+        log.info("Busqueda de Cliente; {}", cuentaDto);
+        cuentaService.desactivarCuentaPorId(cuentaDto);
     }
 
 }
