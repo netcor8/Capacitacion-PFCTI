@@ -29,9 +29,9 @@ public class cuentaApi {
     }
 
     @PostMapping
-    public void guardarCuentas(@RequestBody CuentaDto cuentaDto,ClienteDto clienteDto){
+    public void guardarCuentas(@RequestBody CuentaDto cuentaDto){
         log.info("Busqueda de Cliente; {}", cuentaDto);
-        cuentaService.insertarCuenta(cuentaDto,clienteDto);
+        cuentaService.insertarCuenta(cuentaDto);
     }
 
     @DeleteMapping(value="/{id}")

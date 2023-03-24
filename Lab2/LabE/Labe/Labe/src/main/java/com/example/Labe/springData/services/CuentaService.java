@@ -45,19 +45,12 @@ public class CuentaService {
         return cuentasPorCliente;
     }
 
-    public void insertarCuenta (CuentaDto cuentaDto,ClienteDto clienteDto){
+    public void insertarCuenta (CuentaDto cuentaDto){
         Cuenta cuenta = new Cuenta();
-
         cuenta.setTipo(cuentaDto.getTipo());
         cuenta.setNumero(cuentaDto.getNumero());
         cuenta.setTipo(cuentaDto.getTipo());
-        Cliente cliente = new Cliente();
-        cliente.setApellido(clienteDto.getApellido());
-        cliente.setPaisNacimiento(clienteDto.getPaisNacimiento());
-        cliente.setNombre(clienteDto.getNombre());
-        cliente.setTelefono(clienteDto.getTelefono());
-        cliente.setCedula(clienteDto.getCedula());
-        cuenta.setCliente(cliente);
+        cuentaDto.setClienteId(cuentaDto.getClienteId());
         cuentaRepository.save(cuenta);
     }
 
