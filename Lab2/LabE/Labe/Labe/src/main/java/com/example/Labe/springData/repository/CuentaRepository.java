@@ -16,4 +16,9 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Integer>, JpaSpe
     @Query(value = "select * from Cuenta c where c.CLIENTE_ID = :id", nativeQuery = true)
     List<Cuenta> findByCliente_Id(int id);
 
+    List<Cuenta> findCuentasByCliente_IdAndEstadoIsTrue(int clientId);
+
+
+    void deleteCuenta(int cuentaId);
+
 }
