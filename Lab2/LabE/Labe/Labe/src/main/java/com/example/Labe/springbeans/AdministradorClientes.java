@@ -50,12 +50,12 @@ public class AdministradorClientes {
         if (ClienteQueryType.CEDULA.equals(clienteQueryDto.getTipoBusqueda())) {
             clientes = this.clienteRepository.findByCedula(clienteQueryDto.getTextoBusqueda());
         } else if (ClienteQueryType.NOMBRES.equals(clienteQueryDto.getTipoBusqueda())) {
-            clientes = this.clienteRepository.findByNombreContainingIgnoreCaseOrApellidosContainingIgnoreCase(clienteQueryDto.getTextoBusqueda(), clienteQueryDto.getTextoBusqueda());
+            clientes = this.clienteRepository.findByNombreContainingIgnoreCaseOrApellidoContainingIgnoreCase(clienteQueryDto.getTextoBusqueda(), clienteQueryDto.getTextoBusqueda());
         }
         return Optional.ofNullable(clientes).map(clientesAux-> clientesAux.stream().map(cliente -> {
             ClienteDto clienteDto = new ClienteDto();
             clienteDto.setNombre(cliente.getNombre());
-            clienteDto.setApellido(cliente.getApellidos());
+            clienteDto.setApellido(cliente.getApellido());
             clienteDto.setCedula(cliente.getCedula());
             clienteDto.setTelefono(cliente.getTelefono());
             return clienteDto;

@@ -21,7 +21,6 @@ public class ClienteDto {
 
     private String telefono;
 
-
     private boolean estado;
     private String paisNacimiento;
 

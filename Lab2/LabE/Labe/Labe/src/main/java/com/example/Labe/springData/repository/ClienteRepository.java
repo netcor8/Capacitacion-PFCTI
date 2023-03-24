@@ -13,12 +13,12 @@ import java.util.List;
 public interface ClienteRepository extends JpaRepository <Cliente, Integer>, JpaSpecificationExecutor<Cliente> {
     List<Cliente> findClientesByPaisNacimientoAndCuentas_EstadoIsTrue(String paisNacimiento);
 
-    @Query(value = "select c from Cliente c where c.apellidos = :apellidos")
-    List<Cliente> buscarPorApellidos(String apellidos);
+    @Query(value = "select c from Cliente c where c.apellido = :apellido")
+    List<Cliente> buscarPorApellido(String apellido);
 
-    @Query(value = "select nombre,apellidos,cedula,telefono,id from cliente where apellidos = :apellidos",
+    @Query(value = "select nombre,apellido,cedula,telefono,id from cliente where apellido = :apellido",
             nativeQuery = true)
-    List<Tuple>  buscarPorApellidosNativo(String apellidos);
+    List<Tuple>  buscarPorApellidoNativo(String apellido);
 
     @Query(value = "select * from CLIENTE C inner join TARJETA C2 on C.ID = C2.CLIENTE_ID where PAIS_NACIMIENTO <> 'CR' and C2.ESTADO = false",
             nativeQuery = true)
@@ -27,6 +27,6 @@ public interface ClienteRepository extends JpaRepository <Cliente, Integer>, Jpa
 
     List<Cliente> findByCedula(String cedula);
 
-    List<Cliente> findByNombreContainingIgnoreCaseOrApellidosContainingIgnoreCase(String nombres, String apellidos);
+    List<Cliente> findByNombreContainingIgnoreCaseOrApellidoContainingIgnoreCase(String nombres, String apellido);
 
 }

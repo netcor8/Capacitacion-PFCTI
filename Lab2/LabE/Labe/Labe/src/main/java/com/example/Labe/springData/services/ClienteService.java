@@ -32,31 +32,45 @@ public class ClienteService {
 
     public void insertarCliente (ClienteDto clienteDto){
         Cliente cliente = new Cliente();
-        cliente.setApellidos(clienteDto.getApellido());
-        cliente.setNombre(cliente.getNombre());
-        cliente.setCedula(cliente.getCedula());
-        cliente.setTelefono(cliente.getTelefono());
+        cliente.setApellido(clienteDto.getApellido());
+        cliente.setNombre(clienteDto.getNombre());
+        cliente.setCedula(clienteDto.getCedula());
+        cliente.setTelefono(clienteDto.getTelefono());
+        cliente.setPaisNacimiento(clienteDto.getPaisNacimiento());
         clienteRepository.save(cliente);
     }
 
     public ClienteDto obtenerCliente (int idCliente){
         Cliente cliente = clienteRepository.findById(idCliente)
-                .orElseThrow(() -> {throw new RuntimeException("Clinete no Existe");});
+                .orElseThrow(() -> {throw new RuntimeException("Cliente no Existe");});
         ClienteDto clienteDto = new ClienteDto();
         clienteDto.setId(cliente.getId());
-        clienteDto.setApellido(cliente.getApellidos());
+        clienteDto.setApellido(cliente.getApellido());
         clienteDto.setNombre(cliente.getNombre());
         clienteDto.setCedula(cliente.getCedula());
         return clienteDto;
+    }
+
+
+    public List<ClienteDto> obtenerTodosClientes (){
+        List<ClienteDto> clienteDtoList = new ArrayList<>();
+        clienteRepository.findAll().
+                         stream().
+                         map(cliente -> {
+                             clienteDtoList.add(fromClienteToDto(cliente));
+                             return cliente;
+                         }).collect(Collectors.toList());
+        return clienteDtoList;
     }
 
     public ClienteDto actualizarCliente(ClienteDto clienteDto) {
         Cliente cliente = clienteRepository.findById(clienteDto.getId())
                 .orElseThrow(() -> {throw new RuntimeException("Clinete no Existe");});
         cliente.setNombre(clienteDto.getNombre());
-        cliente.setApellidos(clienteDto.getApellido());
+        cliente.setApellido(clienteDto.getApellido());
         cliente.setTelefono(clienteDto.getTelefono());
         cliente.setCedula(clienteDto.getCedula());
+        cliente.setPaisNacimiento(clienteDto.getPaisNacimiento());
         clienteRepository.save(cliente);
         return null;
     }
@@ -65,13 +79,13 @@ public class ClienteService {
         Cliente cliente = new Cliente();
         cliente.setId(clienteDto.getId());
         cliente.setNombre(clienteDto.getNombre());
-        cliente.setApellidos(clienteDto.getApellido());
+        cliente.setApellido(clienteDto.getApellido());
         cliente.setCedula(clienteDto.getCedula());
         cliente.setTelefono(clienteDto.getTelefono());
         clienteRepository.save(cliente);
     }
 
-    public void eliminarCliente(Integer clienteId){
+    public void eliminarCliente(int clienteId){
         direccionRepository.deleteAllByCliente_Id(clienteId);
         cuentaRepository.deleteAllByCliente_Id(clienteId);
         clienteRepository.deleteById(clienteId);
@@ -83,7 +97,7 @@ public class ClienteService {
         clientes.forEach(cliente -> {
             ClienteDto clienteDto = new ClienteDto();
             clienteDto.setId(cliente.getId());
-            clienteDto.setApellido(cliente.getApellidos());
+            clienteDto.setApellido(cliente.getApellido());
             clienteDto.setNombre(cliente.getNombre());
             clienteDto.setCedula(cliente.getCedula());
             clienteDto.setPaisNacimiento(cliente.getPaisNacimiento());
@@ -94,12 +108,12 @@ public class ClienteService {
     }
 
     public List<Cliente> buscarClientesPorApellido(String apellidos){
-        return clienteRepository.buscarPorApellidos(apellidos);
+        return clienteRepository.buscarPorApellido(apellidos);
     }
 
     public List<ClienteDto> buscarClientesPorApellidoNativo(String apellidos){
         List<ClienteDto> clienteDtos = new ArrayList<>();
-        List<Tuple> tuples = clienteRepository.buscarPorApellidosNativo(apellidos);
+        List<Tuple> tuples = clienteRepository.buscarPorApellidoNativo(apellidos);
         tuples.forEach(tuple -> {
             ClienteDto clienteDto = new ClienteDto();
             clienteDto.setApellido((String) tuple.get("apellidos"));

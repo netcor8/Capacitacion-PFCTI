@@ -18,7 +18,7 @@ public class Cliente {
     @NotNull(message = "Name cannot be null")
     private String nombre;
     @Column(length = 30)
-    private String apellidos;
+    private String apellido;
     @Column(columnDefinition = "varchar(9)")
     private String cedula;
     private String telefono;
