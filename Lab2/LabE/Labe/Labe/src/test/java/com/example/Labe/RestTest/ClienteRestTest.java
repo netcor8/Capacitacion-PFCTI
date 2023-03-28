@@ -52,7 +52,6 @@ public class ClienteRestTest {
                     assertFalse(clienteDtoList.isEmpty());
 
 
-
                // assertTrue(clienteDtoList.get(0).getNombre()!= null);
 
     }
