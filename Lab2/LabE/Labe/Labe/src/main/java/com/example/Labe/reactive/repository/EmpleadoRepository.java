@@ -3,7 +3,10 @@ package com.example.Labe.reactive.repository;
 import com.example.Labe.reactive.model.Empleado;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
+
+
 
 public interface EmpleadoRepository extends ReactiveMongoRepository<Empleado,Integer> {
 

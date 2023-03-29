@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@Transactional
+//@Transactional
 public class ClienteService {
     private ClienteRepository clienteRepository;
     private DireccionRepository direccionRepository;
