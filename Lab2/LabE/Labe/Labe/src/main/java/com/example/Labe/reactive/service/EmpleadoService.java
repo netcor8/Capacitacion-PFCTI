@@ -15,7 +15,7 @@ public class EmpleadoService {
    EmpleadoRepository empleadoRepository;
 
     public void create(Empleado empleado){
-        empleadoRepository.save(empleado);
+        empleadoRepository.save(empleado).subscribe();
     }
 
 
